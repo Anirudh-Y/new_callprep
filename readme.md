@@ -12,3 +12,10 @@ python -m venv env
 pip install -r requirements.txt
 fastapi dev main.py
 ```
+
+## Run the web service
+- Open browser and run "http://localhost:8000/"
+
+## Extra options
+- The threshold cutoff value for cosine score can be changed using the threshold input and radio button
+    - Values should be between 0 and 1
