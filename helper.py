@@ -21,9 +21,13 @@ from tqdm.auto import tqdm
 load_dotenv() 
 API_KEY=os.getenv("API_KEY")
 MODE = os.getenv("MODE")
+UPLOAD_DIR = os.getenv("UPLOAD_DIR")
+
 
 pc = Pinecone(api_key=API_KEY)
-UPLOAD_DIR = Path() / 'uploads'
+# UPLOAD_DIR = Path() / 'uploads'
+# UPLOAD_DIR = '/opt/source-code/uploads'
+
 cloud = 'aws'
 region = 'us-east-1'
 spec = ServerlessSpec(cloud=cloud, region=region)
@@ -46,7 +50,8 @@ async def uploader(file,model):
     print(file.content_type)
     if file.content_type=="application/pdf":
         data = await file.read()
-        save_to = UPLOAD_DIR / filename
+        print(filename)
+        save_to = UPLOAD_DIR + '/' + filename
         with open(save_to, 'wb') as f:
             f.write(data)
         

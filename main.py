@@ -7,12 +7,16 @@ from fastapi.templating import Jinja2Templates
 from sentence_transformers import SentenceTransformer
 import torch
 from fastapi.middleware.cors import CORSMiddleware
+import os
+
 
 from helper import uploader, query
 
 app = FastAPI()
 # app.mount("/static", StaticFiles(directory="static",html = True), name="static")
-templates = Jinja2Templates(directory="static")
+
+templates = Jinja2Templates(directory=os.getenv("STATIC"))
+# templates = Jinja2Templates(directory="/opt/source-code/static")
 
 origins = ['*']
 
@@ -61,3 +65,4 @@ async def read_item(request:Request,item_id: str, q: Union[str, None] = None,th:
 @app.get("/",response_class=HTMLResponse)
 async def main(request:Request):
     return templates.TemplateResponse("index.html", {"request": request})
+    # return FileResponse("index.html")
